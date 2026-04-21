@@ -9,9 +9,10 @@ export default function ProtectedComponent({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { userDetails } = useAuthHooks();
+  const { userDetails, } = useAuthHooks();
 
   useEffect(() => {
+   
     const token = localStorage.getItem("accessToken");
 
     if (!token) {

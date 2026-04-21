@@ -15,6 +15,8 @@ export const useAuthHooks = () => {
     error,
     userDetails,
     setUserDetails,
+    accessToken,
+    setAccessToken,
   } = useUserAuthStore();
   const router = useRouter();
   const handleRegister = async (data: RegisterInput) => {
@@ -41,6 +43,7 @@ export const useAuthHooks = () => {
       setLoading(true);
       setError(null);
       const response = await loginUser(data);
+      setAccessToken?.(response.accessToken || null);
       setUser(response.data);
       toast.success(response.message || "Login successful!");
       router.push("/dashboard");
@@ -76,7 +79,7 @@ export const useAuthHooks = () => {
   };
 
   return {
-
+    accessToken,
     user,
     loading,
     error,

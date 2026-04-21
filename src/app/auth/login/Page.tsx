@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useAuthHooks } from "@/features/auth/hooks/useHooks";
@@ -8,9 +8,10 @@ import { LoginFormInputs } from "@/types/auth";
 import { Toaster } from "@/components/ui/sonner";
 import Link from "next/link";
 
+
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const { handleLogin, loading } = useAuthHooks();
+  const { handleLogin, loading, accessToken } = useAuthHooks();
 
   const {
     register,
@@ -19,14 +20,16 @@ export default function LoginPage() {
   } = useForm<LoginFormInputs>();
 
   const onSubmit = async (data: LoginFormInputs) => {
-    const res = await handleLogin(data);
-    const token = res?.accessToken;
-    localStorage.setItem("accessToken", token || "");
+    await handleLogin(data);
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    localStorage.setItem("accessToken", accessToken || "");
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 px-4 py-12">
