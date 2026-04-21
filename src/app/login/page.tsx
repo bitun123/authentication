@@ -27,7 +27,9 @@ export default function LoginPage() {
     setShowPassword(!showPassword);
   };
 
-
+  useEffect(() => {
+    localStorage.setItem("accessToken", accessToken || "");
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 px-4 py-12">
@@ -66,9 +68,8 @@ export default function LoginPage() {
                   id="email"
                   type="email"
                   placeholder="name@example.com"
-                  className={`block w-full pl-10 pr-3 py-2.5 bg-zinc-800 border ${
-                    errors.email ? "border-red-500" : "border-zinc-700"
-                  } rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm`}
+                  className={`block w-full pl-10 pr-3 py-2.5 bg-zinc-800 border ${errors.email ? "border-red-500" : "border-zinc-700"
+                    } rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm`}
                 />
               </div>
               {errors.email && (
@@ -105,9 +106,8 @@ export default function LoginPage() {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
-                  className={`block w-full pl-10 pr-10 py-2.5 bg-zinc-800 border ${
-                    errors.password ? "border-red-500" : "border-zinc-700"
-                  } rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm`}
+                  className={`block w-full pl-10 pr-10 py-2.5 bg-zinc-800 border ${errors.password ? "border-red-500" : "border-zinc-700"
+                    } rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm`}
                 />
 
                 <button

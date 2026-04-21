@@ -19,10 +19,7 @@ export const useUserAuthStore = create<UserAuthState>((set) => ({
   user: null,
   setUser: (user) => set({ user }),
   clearUser: () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("accessToken");
-    }
-    set({ user: null, accessToken: null, userDetails: null });
+    set({ user: null });
   },
   loading: false,
   error: null,
