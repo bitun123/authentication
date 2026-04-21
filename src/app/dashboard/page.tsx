@@ -13,6 +13,7 @@ function DashboardPage() {
   const router = useRouter();
   const logout = () => {
     clearUser();
+    localStorage.removeItem("accessToken");
     router.push("/auth/login");
   };
 
