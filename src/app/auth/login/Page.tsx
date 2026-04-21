@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const { handleLogin, loading, error } = useAuthHooks();
+  const { handleLogin, loading, } = useAuthHooks();
 
   const {
     register,
@@ -19,7 +19,8 @@ export default function LoginPage() {
   } = useForm<LoginFormInputs>();
 
   const onSubmit = async (data: LoginFormInputs) => {
-    await handleLogin(data);
+  await handleLogin(data);
+
   };
 
   const togglePasswordVisibility = () => {

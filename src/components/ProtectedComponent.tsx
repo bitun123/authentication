@@ -11,8 +11,7 @@ export default function ProtectedComponent({
 }) {
   const router = useRouter();
 const {userDetails}  =  useAuthHooks();
-  const accessToken = localStorage.getItem("accessToken");
-  console.log("Access Token in ProtectedComponent:", accessToken);
+
 
   useEffect(() => {
     if (userDetails?.data === null) {
