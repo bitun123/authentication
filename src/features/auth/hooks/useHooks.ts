@@ -13,8 +13,6 @@ export const useAuthHooks = () => {
     setError,
     loading,
     error,
-    accessToken,
-    setAccessToken,
     userDetails,
     setUserDetails,
   } = useUserAuthStore();
@@ -78,7 +76,7 @@ export const useAuthHooks = () => {
   };
 
   return {
-    accessToken,
+
     user,
     loading,
     error,
