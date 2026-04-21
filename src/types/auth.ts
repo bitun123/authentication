@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-
 export type Organization = {
   id: string;
   name: string;
@@ -10,30 +9,51 @@ export type Organization = {
 };
 
 export type User = {
-  id: string;
+  _id: string;
   name: string;
   email: string;
-  organization: Organization;
+  organization?: Organization;
 };
 
-export type LoginData = {
-  user: User;
-  access_token: string;
-};
+export interface LoginFormInputs {
+  email: string;
+  password: string;
+}
 
-export type RegisterData = {
-  user: User;
-};
+export interface userDetailsData {
+  mfa: {
+    totpEnabled: boolean;
+    totpVerified: boolean;
+    passkeyEnabled: boolean;
+    backupCodes: string[];
+    passkeys: any[];
+  };
+  _id: string;
+  name: string;
+  email: string;
+  orgId: {
+    _id: string;
+    name: string;
+    orgId: string;
+  };
+  role: string;
+  enabled: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
 export type ApiResponse<T> = {
-  status: "success" | "error";
+  error: boolean;
+  status: number;
   message: string;
+  code: string;
+  accessToken?: string;
   data: T;
+  expiryAt: string;
 };
 
-export type RegisterResponse = ApiResponse<RegisterData>;
-export type LoginResponse = ApiResponse<LoginData>;
-
+export type LoginResponse = ApiResponse<User>;
 
 export const registerSchema = z.object({
   orgDetails: z.object({
@@ -54,8 +74,10 @@ export const registerSchema = z.object({
     .min(6, "Password must be at least 6 characters")
     .regex(
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/,
-      "Password must include uppercase, lowercase, and number"
+      "Password must include uppercase, lowercase, and number",
     ),
 });
+
+export type userDetailsResponse = ApiResponse<userDetailsData>;
 
 export type RegisterInput = z.infer<typeof registerSchema>;

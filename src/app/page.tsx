@@ -1,9 +1,12 @@
-
+import ProtectedComponent from "@/components/ProtectedComponent";
+import DashboardPage from "./dashboard/page";
 
 function page() {
   return (
-    <div>page</div>
-  )
+    <ProtectedComponent>
+      <DashboardPage />
+    </ProtectedComponent>
+  );
 }
 
-export default page
+export default page;
