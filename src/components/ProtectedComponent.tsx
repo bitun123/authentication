@@ -16,7 +16,7 @@ export default function ProtectedComponent({
     const token = localStorage.getItem("accessToken");
 
     if (!token) {
-      router.push("/auth/login");
+      router.push("/login");
     }
   }, [router, userDetails, accessToken]);
 

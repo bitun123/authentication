@@ -208,7 +208,7 @@ export default function RegistrationPage() {
 
           <div className="text-center">
             <p className="text-sm text-zinc-400">
-              Already have an account? <Link href="/auth/login" >Log in</Link>
+              Already have an account? <Link href="/login" >Log in</Link>
             </p>
           </div>
         </form>
