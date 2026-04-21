@@ -1,3 +1,4 @@
+"use client";
 import ProtectedComponent from "@/components/ProtectedComponent";
 import DashboardPage from "./dashboard/page";
 
