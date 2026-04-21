@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 function DashboardPage() {
-  const { userDetails, accessToken, fetchUserDetails, loading } =
+  const { userDetails, fetchUserDetails, loading } =
     useAuthHooks();
   const { clearUser } = useUserAuthStore();
   const router = useRouter();
@@ -17,11 +17,13 @@ function DashboardPage() {
   };
 
   useEffect(() => {
-    if (accessToken) {
-      fetchUserDetails(accessToken);
-    } else {
-      router.push("/auth/login");
-    }
+const accessToken = localStorage.getItem("accessToken")
+if(!accessToken){
+  router.push("/auth/login")
+}else{
+  fetchUserDetails(accessToken)
+}
+
   }, []);
 
   return (

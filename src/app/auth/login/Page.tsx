@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const { handleLogin, loading, } = useAuthHooks();
+  const { handleLogin, loading } = useAuthHooks();
 
   const {
     register,
@@ -19,8 +19,9 @@ export default function LoginPage() {
   } = useForm<LoginFormInputs>();
 
   const onSubmit = async (data: LoginFormInputs) => {
-  await handleLogin(data);
-
+    const res = await handleLogin(data);
+    const token = res?.accessToken;
+    localStorage.setItem("accessToken", token || "");
   };
 
   const togglePasswordVisibility = () => {
@@ -137,8 +138,7 @@ export default function LoginPage() {
             <Toaster richColors position="top-right" />
             <p className="text-sm text-zinc-400">
               don't have an account?{" "}
-                <Link href="/auth/registration">Sign up</Link>
-
+              <Link href="/auth/registration">Sign up</Link>
             </p>
           </div>
         </form>

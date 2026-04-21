@@ -20,7 +20,6 @@ export const useAuthHooks = () => {
   } = useUserAuthStore();
   const router = useRouter();
   const handleRegister = async (data: RegisterInput) => {
-    console.log("Registration data:", data);
     try {
       setLoading(true);
       setError(null);
@@ -45,9 +44,9 @@ export const useAuthHooks = () => {
       setError(null);
       const response = await loginUser(data);
       setUser(response.data);
-      setAccessToken(response.accessToken || null);
       toast.success(response.message || "Login successful!");
       router.push("/dashboard");
+      return response;
     } catch (error) {
       const errorMessage =
         error instanceof Error
@@ -77,8 +76,6 @@ export const useAuthHooks = () => {
       setLoading(false);
     }
   };
-
-
 
   return {
     accessToken,
