@@ -13,18 +13,14 @@ function DashboardPage() {
   const router = useRouter();
   const logout = () => {
     clearUser();
-    localStorage.removeItem("accessToken");
     router.push("/auth/login");
   };
 
   useEffect(() => {
-const accessToken = localStorage.getItem("accessToken")
-if(!accessToken){
-  router.push("/auth/login")
-}else{
-  fetchUserDetails(accessToken)
-}
-
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      fetchUserDetails(accessToken);
+    }
   }, []);
 
   return (

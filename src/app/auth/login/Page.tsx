@@ -27,9 +27,7 @@ export default function LoginPage() {
     setShowPassword(!showPassword);
   };
 
-  useEffect(() => {
-    localStorage.setItem("accessToken", accessToken || "");
-  }, []);
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 px-4 py-12">

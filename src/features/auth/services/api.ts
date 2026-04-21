@@ -1,24 +1,10 @@
 import { RegisterInput, LoginResponse, LoginFormInputs } from "@/types/auth";
 
-const REGISTER_API_URL = process.env.NEXT_PUBLIC_REGISTER_API_URL;
+const REGISTER_API_URL = process.env.NEXT_PUBLIC_REGISTER_API_URL || "";
 
-if (!REGISTER_API_URL) {
-  throw new Error("REGISTER_API_URL is not defined in environment variables");
-}
+const LOGIN_API_URL = process.env.NEXT_PUBLIC_LOGIN_API_URL || "";
 
-const LOGIN_API_URL = process.env.NEXT_PUBLIC_LOGIN_API_URL;
-
-if (!LOGIN_API_URL) {
-  throw new Error("LOGIN_API_URL is not defined in environment variables");
-}
-
-const USER_DETAILS_API_URL = process.env.NEXT_PUBLIC_USER_DETAILS_API_URL;
-
-if (!USER_DETAILS_API_URL) {
-  throw new Error(
-    "USER_DETAILS_API_URL is not defined in environment variables",
-  );
-}
+const USER_DETAILS_API_URL = process.env.NEXT_PUBLIC_USER_DETAILS_API_URL || "";
 
 //register user
 export const registerUser = async (data: RegisterInput): Promise<void> => {
