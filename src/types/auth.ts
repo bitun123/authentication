@@ -21,26 +21,28 @@ export interface LoginFormInputs {
 }
 
 export interface userDetailsData {
-  mfa: {
-    totpEnabled: boolean;
-    totpVerified: boolean;
-    passkeyEnabled: boolean;
-    backupCodes: string[];
-    passkeys: any[];
-  };
-  _id: string;
-  name: string;
-  email: string;
-  orgId: {
+  data: {
+    mfa: {
+      totpEnabled: boolean;
+      totpVerified: boolean;
+      passkeyEnabled: boolean;
+      backupCodes: string[];
+      passkeys: any[];
+    };
     _id: string;
     name: string;
-    orgId: string;
+    email: string;
+    orgId: {
+      _id: string;
+      name: string;
+      orgId: string;
+    };
+    role: string;
+    enabled: number;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
   };
-  role: string;
-  enabled: number;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
 }
 
 export type ApiResponse<T> = {
