@@ -28,10 +28,7 @@ export const useAuthHooks = () => {
       toast.success("Registration successful!");
       router.push("/auth/login");
     } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : "An unexpected error occurred.";
+      const errorMessage = error.message;
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {

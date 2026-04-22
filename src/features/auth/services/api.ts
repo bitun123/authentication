@@ -40,7 +40,7 @@ export const registerUser = async (data: RegisterInput): Promise<void> => {
     return responseData;
   } catch (error) {
     console.error("Error during registration:", error);
-    throw new Error("An error occurred during registration");
+    throw new Error(error instanceof Error ? error.message : "An error occurred during registration");
   }
 };
 
