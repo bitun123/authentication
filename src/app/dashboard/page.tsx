@@ -1,29 +1,23 @@
 "use client";
 import Card from "@/components/Card";
-import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 import { useAuthHooks } from "@/features/auth/hooks/useHooks";
 import { useUserAuthStore } from "@/features/auth/state/userAuthStore";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 function DashboardPage() {
-  const { userDetails, fetchUserDetails, loading } = useAuthHooks();
-  const { clearUser } = useUserAuthStore();
+  const { userDetails, loading } = useAuthHooks();
+  const { clearUser, setAccessToken } = useUserAuthStore();
   const router = useRouter();
   const logout = () => {
     clearUser();
+    setAccessToken?.(null);
     localStorage.removeItem("accessToken");
-    router.push("/login");
+    toast.success("Logged out successfully!");
+    setTimeout(() => {
+      router.push("/login");
+    }, 1000);
   };
-
-  // useEffect(() => {
-  //   const accessToken = localStorage.getItem("accessToken");
-  //   if (!accessToken) {
-  //     router.push("/login");
-  //   } else {
-  //     fetchUserDetails(accessToken);
-  //   }
-  // }, []);
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
@@ -34,7 +28,6 @@ function DashboardPage() {
       ) : (
         <p className="text-zinc-500 text-sm">No user details found.</p>
       )}
-      <Toaster position="top-right" />
 
       <button
         onClick={logout}
