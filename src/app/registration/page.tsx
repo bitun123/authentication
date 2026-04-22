@@ -196,7 +196,6 @@ export default function RegistrationPage() {
           </div>
 
           <div className="pt-4">
-            <Toaster richColors position="top-right" />
 
             <button
               type="submit"
