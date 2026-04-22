@@ -1,12 +1,13 @@
 "use client";
-import ProtectedComponent from "@/components/ProtectedComponent";
-import DashboardPage from "./dashboard/page";
+import LoginPage from "./login/page";
 
 function page() {
   return (
-    <ProtectedComponent>
-      <DashboardPage />
-    </ProtectedComponent>
+
+<div>
+  <LoginPage/>
+</div>
+  
   );
 }
 
