@@ -47,8 +47,10 @@ export const useAuthHooks = () => {
       router.push("/dashboard");
       return response;
     } catch (error) {
-      console.log("Error during login:", error);
-      const errorMessage = error.message;
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred while fetching user details.";
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
