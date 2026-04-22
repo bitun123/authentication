@@ -26,7 +26,7 @@ export const useAuthHooks = () => {
       setError(null);
       await registerUser(data);
       toast.success("Registration successful!");
-      router.push("/auth/login");
+      router.push("/login");
     } catch (error) {
       const errorMessage = error.message;
       setError(errorMessage);

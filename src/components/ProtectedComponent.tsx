@@ -1,3 +1,4 @@
+
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -9,16 +10,13 @@ export default function ProtectedComponent({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { userDetails, accessToken } = useAuthHooks();
+  const { accessToken } = useAuthHooks();
 
   useEffect(() => {
-   
-    const token = localStorage.getItem("accessToken");
-
-    if (!token) {
+    if (!accessToken) {
       router.push("/login");
     }
-  }, [router, userDetails, accessToken]);
+  }, [router, accessToken]);
 
   return <>{children}</>;
 }

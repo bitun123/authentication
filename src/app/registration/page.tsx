@@ -52,7 +52,7 @@ export default function RegistrationPage() {
                 <input
                   {...register("orgDetails.name", { required: "Required" })}
                   placeholder="Acme Corp"
-                  className="block w-full px-3 py-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm"
+                  className={`block w-full px-3 py-2.5 bg-zinc-800 border ${errors.orgDetails?.name ? "border-red-500" : "border-zinc-700"} rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm`}
                 />
               </div>
               <div>
@@ -64,7 +64,7 @@ export default function RegistrationPage() {
                     required: "Required",
                   })}
                   placeholder="Acme Industries LLC"
-                  className="block w-full px-3 py-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm"
+                  className={`block w-full px-3 py-2.5 bg-zinc-800 border ${errors.orgDetails?.legalName ? "border-red-500" : "border-zinc-700"} rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm`}
                 />
               </div>
             </div>
@@ -84,7 +84,7 @@ export default function RegistrationPage() {
                     })}
                     type="email"
                     placeholder="org@example.com"
-                    className="block w-full pl-10 pr-3 py-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm"
+                    className={`block w-full pl-10 pr-3 py-2.5 bg-zinc-800 border ${errors.orgDetails?.contactInfo?.email ? "border-red-500" : "border-zinc-700"} rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm`}
                   />
                 </div>
               </div>
@@ -101,7 +101,7 @@ export default function RegistrationPage() {
                       required: "Required",
                     })}
                     placeholder="+1 (555) 000-0000"
-                    className="block w-full pl-10 pr-3 py-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm"
+                    className={`block w-full pl-10 pr-3 py-2.5 bg-zinc-800 border ${errors.orgDetails?.contactInfo?.phone ? "border-red-500" : "border-zinc-700"} rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm`}
                   />
                 </div>
               </div>
@@ -121,7 +121,7 @@ export default function RegistrationPage() {
                 <input
                   {...register("name", { required: "Required" })}
                   placeholder="John Doe"
-                  className="block w-full px-3 py-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm"
+                  className={`block w-full px-3 py-2.5 bg-zinc-800 border ${errors.name ? "border-red-500" : "border-zinc-700"} rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent transition-all sm:text-sm`}
                 />
               </div>
               <div>

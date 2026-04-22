@@ -136,7 +136,7 @@ export default function LoginPage() {
           </div>
 
           <div className="text-center mt-6">
-            <Toaster richColors position="top-right" />
+
             <p className="text-sm text-zinc-400">
               don't have an account?{" "}
               <Link href="/registration">Sign up</Link>

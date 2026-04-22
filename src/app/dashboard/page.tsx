@@ -10,9 +10,8 @@ function DashboardPage() {
   const { clearUser } = useUserAuthStore();
   const router = useRouter();
   const logout = () => {
-    toast.success("Logged out successfully!");
     clearUser();
-    localStorage.removeItem("accessToken");
+    toast.success("Logged out successfully!");
     router.push("/login");
   };
 
