@@ -67,7 +67,9 @@ export const loginUser = async (
     return responseData;
   } catch (error) {
     console.error("Error during login:", error);
-    throw new Error("An error occurred during login");
+    throw new Error(error instanceof Error ? error.message : "An error occurred during login");
+     
+    
   }
 };
 

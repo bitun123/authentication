@@ -4,6 +4,7 @@ import { useUserAuthStore } from "../state/userAuthStore";
 import { registerUser, loginUser, getUserDetails } from "../services/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 export const useAuthHooks = () => {
   const {
@@ -49,10 +50,8 @@ export const useAuthHooks = () => {
       router.push("/dashboard");
       return response;
     } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : "An unexpected error occurred.";
+      console.log("Error during login:", error);
+      const errorMessage = error.message;
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -77,6 +76,12 @@ export const useAuthHooks = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (accessToken && !userDetails) {
+      fetchUserDetails(accessToken);
+    }
+  }, [accessToken, userDetails]);
 
   return {
     accessToken,

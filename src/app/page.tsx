@@ -1,13 +1,22 @@
 "use client";
+import { useAuthHooks } from "@/features/auth/hooks/useHooks";
 import LoginPage from "./login/page";
+import ProtectedComponent from "@/components/ProtectedComponent";
+import DashboardPage from "./dashboard/page";
 
 function page() {
-  return (
+  const { userDetails, accessToken } = useAuthHooks();
 
-<div>
-  <LoginPage/>
-</div>
-  
+  return (
+    <div>
+      {userDetails && accessToken ? (
+        <ProtectedComponent>
+          <DashboardPage />
+        </ProtectedComponent>
+      ) : (
+        <LoginPage />
+      )}
+    </div>
   );
 }
 
