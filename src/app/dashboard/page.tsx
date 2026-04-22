@@ -7,16 +7,13 @@ import { useRouter } from "next/navigation";
 
 function DashboardPage() {
   const { userDetails, loading } = useAuthHooks();
-  const { clearUser, setAccessToken } = useUserAuthStore();
+  const { clearUser } = useUserAuthStore();
   const router = useRouter();
   const logout = () => {
-    clearUser();
-    setAccessToken?.(null);
-    localStorage.removeItem("accessToken");
     toast.success("Logged out successfully!");
-    setTimeout(() => {
-      router.push("/login");
-    }, 1000);
+    clearUser();
+    localStorage.removeItem("accessToken");
+    router.push("/login");
   };
 
   return (
