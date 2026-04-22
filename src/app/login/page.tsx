@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useAuthHooks } from "@/features/auth/hooks/useHooks";
 import { LoginFormInputs } from "@/types/auth";
-import { Toaster } from "@/components/ui/sonner";
 import Link from "next/link";
 
 
