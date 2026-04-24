@@ -5,7 +5,7 @@ import { useTokenStore } from "../state/tokenStore";
 import { registerUser, loginUser, getUserDetails } from "../services/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
+import { useRegistrationStore } from "../state/registrationStore";
 
 export const useAuthHooks = () => {
   const {
@@ -17,6 +17,9 @@ export const useAuthHooks = () => {
     userDetails,
     setUserDetails,
   } = useUserAuthStore();
+
+  const { formData, currentStep, updateFormData, setStep, clearFormData } =
+    useRegistrationStore();
 
   const { user } = useUserAuthStore();
   const { accessToken, setAccessToken } = useTokenStore();
@@ -83,6 +86,56 @@ export const useAuthHooks = () => {
     }
   };
 
+  const nextStep = (data: Partial<RegisterInput>) => {
+    updateFormData(data);
+    setStep(currentStep + 1);
+  };
+
+  const prevStep = () => {
+    setStep(currentStep - 1);
+  };
+
+  const submitRegistration = async (finalData: Partial<RegisterInput>) => {
+    const completeData = {
+      ...formData,
+      ...finalData,
+      orgDetails: {
+        ...formData.orgDetails,
+        ...(finalData.orgDetails || {}),
+        contactInfo: {
+          ...formData.orgDetails.contactInfo,
+          ...(finalData.orgDetails?.contactInfo || {}),
+        },
+      },
+    } as RegisterInput;
+
+    if (
+      !completeData.name ||
+      !completeData.email ||
+      !completeData.password ||
+      !completeData.orgDetails.name ||
+      !completeData.orgDetails.legalName ||
+      !completeData.orgDetails.contactInfo.email ||
+      !completeData.orgDetails.contactInfo.phone
+    ) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    try {
+      const success = await handleRegister(completeData);
+      if (success) {
+        clearFormData();
+      }
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred during registration.";
+      toast.error(errorMessage);
+    }
+  };
+
   return {
     accessToken,
     user,
@@ -92,5 +145,11 @@ export const useAuthHooks = () => {
     handleLogin,
     fetchUserDetails,
     userDetails,
+    formData,
+    currentStep,
+    nextStep,
+    prevStep,
+    submitRegistration,
+    updateFormData,
   };
 };

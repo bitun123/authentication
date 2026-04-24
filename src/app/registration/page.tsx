@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTokenStore } from "@/features/auth/state/tokenStore";
-import { useRegister } from "@/features/auth/hooks/useRegister";
 import { Step1 } from "@/features/auth/components/registration/Step1";
 import { Step2 } from "@/features/auth/components/registration/Step2";
+import { useAuthHooks } from "@/features/auth/hooks/useHooks";
 
 export default function RegistrationPage() {
   const { accessToken } = useTokenStore();
@@ -18,7 +18,7 @@ export default function RegistrationPage() {
     prevStep,
     submitRegistration,
     loading,
-  } = useRegister();
+  } = useAuthHooks();
 
   useEffect(() => {
     if (accessToken) {
