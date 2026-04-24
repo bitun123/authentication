@@ -5,7 +5,7 @@ import { useTokenStore } from "../state/tokenStore";
 import { registerUser, loginUser, getUserDetails } from "../services/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useEffect } from "react";
+
 
 export const useAuthHooks = () => {
   const {
@@ -28,6 +28,7 @@ export const useAuthHooks = () => {
       await registerUser(data);
       toast.success("Registration successful!");
       router.push("/login");
+      return true;
     } catch (error) {
       const errorMessage =
         error instanceof Error
@@ -35,6 +36,7 @@ export const useAuthHooks = () => {
           : "An unexpected error occurred while fetching user details.";
       setError(errorMessage);
       toast.error(errorMessage);
+      return false;
     } finally {
       setLoading(false);
     }
