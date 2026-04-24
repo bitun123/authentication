@@ -18,6 +18,7 @@ function DashboardPage() {
   const { clearUser } = useUserAuthStore();
   const { accessToken, removeAccessToken } = useTokenStore();
   const logout = () => {
+    toast.success("Logged out successfully!");
     clearUser();
     removeAccessToken();
 
@@ -42,7 +43,7 @@ function DashboardPage() {
 
         <Link href="/login"
           onClick={logout}
-   
+
           className="absolute top-4 right-4 px-3 py-1 bg-red-500 text-white rounded-2xl  cursor-pointer active:scale-95 "
         >
           Logout

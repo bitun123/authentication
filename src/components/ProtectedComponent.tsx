@@ -10,20 +10,38 @@ export default function ProtectedComponent({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { accessToken } = useTokenStore();
-
+  const { accessToken, isLoggingOut, setLoggingOut } = useTokenStore();
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    if ( !accessToken) {
-      toast.error("Please login to access this page");
+    setChecked(true);
+  }, []);
+
+  useEffect(() => {
+    if (checked && !accessToken) {
+      if (!isLoggingOut) {
+        toast.error("Please login to access this page", {
+          id: "unauthorized-access-toast",
+        });
+      }
+
       const timer = setTimeout(() => {
         router.push("/login");
-      }, 100);
+      }, 800);
+
       return () => clearTimeout(timer);
     }
-  }, [router, accessToken, ]);
+  }, [accessToken, checked, isLoggingOut, router]);
 
-  if (!accessToken) return null;
+  useEffect(() => {
+    return () => {
+      if (isLoggingOut) {
+        setLoggingOut(false);
+      }
+    };
+  }, [isLoggingOut, setLoggingOut]);
+
+  if (!checked || !accessToken) return null;
 
   return <>{children}</>;
 }
