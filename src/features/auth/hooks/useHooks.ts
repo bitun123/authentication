@@ -1,6 +1,7 @@
 "use client";
 import { LoginFormInputs, RegisterInput } from "@/types/auth";
 import { useUserAuthStore } from "../state/userAuthStore";
+import { useTokenStore } from "../state/tokenStore";
 import { registerUser, loginUser, getUserDetails } from "../services/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -8,7 +9,6 @@ import { useEffect } from "react";
 
 export const useAuthHooks = () => {
   const {
-    user,
     setUser,
     setLoading,
     setError,
@@ -16,9 +16,10 @@ export const useAuthHooks = () => {
     error,
     userDetails,
     setUserDetails,
-    accessToken,
-    setAccessToken,
   } = useUserAuthStore();
+
+  const { user } = useUserAuthStore();
+  const { accessToken, setAccessToken } = useTokenStore();
   const router = useRouter();
   const handleRegister = async (data: RegisterInput) => {
     try {
@@ -44,6 +45,7 @@ export const useAuthHooks = () => {
       setLoading(true);
       setError(null);
       const response = await loginUser(data);
+      console.log(response.accessToken, "response from login");
       setAccessToken?.(response.accessToken || null);
       setUser(response.data);
       toast.success(response.message || "Login successful!");
@@ -78,12 +80,6 @@ export const useAuthHooks = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (accessToken && !userDetails) {
-      fetchUserDetails(accessToken);
-    }
-  }, [accessToken, userDetails]);
 
   return {
     accessToken,

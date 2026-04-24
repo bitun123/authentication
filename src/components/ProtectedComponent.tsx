@@ -1,8 +1,8 @@
-
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthHooks } from "@/features/auth/hooks/useHooks";
+import { toast } from "sonner";
+import { useTokenStore } from "@/features/auth/state/tokenStore";
 
 export default function ProtectedComponent({
   children,
@@ -10,13 +10,20 @@ export default function ProtectedComponent({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { accessToken } = useAuthHooks();
+  const { accessToken } = useTokenStore();
+
 
   useEffect(() => {
-    if (!accessToken) {
-      router.push("/login");
+    if ( !accessToken) {
+      toast.error("Please login to access this page");
+      const timer = setTimeout(() => {
+        router.push("/login");
+      }, 100);
+      return () => clearTimeout(timer);
     }
-  }, [router, accessToken]);
+  }, [router, accessToken, ]);
+
+  if (!accessToken) return null;
 
   return <>{children}</>;
 }

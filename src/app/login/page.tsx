@@ -6,17 +6,27 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useAuthHooks } from "@/features/auth/hooks/useHooks";
 import { LoginFormInputs } from "@/types/auth";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useTokenStore } from "@/features/auth/state/tokenStore";
 
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const { handleLogin, loading, accessToken } = useAuthHooks();
+  const { handleLogin, loading } = useAuthHooks();
+  const { accessToken } = useTokenStore();
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>();
+
+  useEffect(() => {
+    if (accessToken) {
+      router.push("/dashboard");
+    }
+  }, [accessToken, router]);
 
   const onSubmit = async (data: LoginFormInputs) => {
     await handleLogin(data);
@@ -26,9 +36,6 @@ export default function LoginPage() {
     setShowPassword(!showPassword);
   };
 
-  useEffect(() => {
-    localStorage.setItem("accessToken", accessToken || "");
-  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 px-4 py-12">

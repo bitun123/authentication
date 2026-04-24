@@ -1,21 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff, Lock, Mail, Building, User, Phone } from "lucide-react";
 import { RegisterInput } from "@/types/auth";
 import { useAuthHooks } from "@/features/auth/hooks/useHooks";
-import { Toaster } from "@/components/ui/sonner";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useTokenStore } from "@/features/auth/state/tokenStore";
 
 export default function RegistrationPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const { accessToken } = useTokenStore();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterInput>();
   const { handleRegister } = useAuthHooks();
+
+  useEffect(() => {
+    if (accessToken) {
+      
+      router.push("/dashboard");
+    }
+  }, [accessToken, router]);
 
   const onSubmit = async (data: RegisterInput) => {
     await handleRegister(data);
